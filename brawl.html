@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ブロスタ増殖ゲーム</title>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-family: sans-serif;
+  background: #fff8df;
+}
+h1 { color: #e63946; }
+button {
+  position: sticky;
+  top: 10px;
+  padding: 16px 24px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  background: #ff8c00;
+  border: none;
+  border-radius: 12px;
+}
+#count {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px;
+}
+#area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.brawl {
+  padding: 8px 12px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #ffe066;
+  border: 2px solid #ffbd00;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+<h1>ブロスタ増殖ゲーム</h1>
+<button id="addButton">ブロスタを増やす！</button>
+<div id="count">ブロスタ：0個</div>
+<div id="area"></div>
+
+<script>
+const area = document.getElementById("area");
+const count = document.getElementById("count");
+const button = document.getElementById("addButton");
+
+let total = Number(localStorage.getItem("brawlCount")) || 0;
+
+function render() {
+  area.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < total; i++) {
+    const word = document.createElement("span");
+    word.className = "brawl";
+    word.textContent = "ブロスタ";
+    fragment.appendChild(word);
+  }
+
+  area.appendChild(fragment);
+  count.textContent = `ブロスタ：${total}個`;
+}
+
+button.addEventListener("click", () => {
+  total++;
+  localStorage.setItem("brawlCount", total);
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
